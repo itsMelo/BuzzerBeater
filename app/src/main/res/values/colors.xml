@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF6A6A</color>
+    <color name="colorPrimaryDark">#CD5555</color>
+    <color name="colorAccent">#EEEE00</color>
+
+    <!-- Bottom Navigation -->
+    <color name="bg_bottom_navigation">#fcfcfc</color>
+    <color name="accent_bottom_navigation">#FF6A6A</color>
+    <color name="inactive_bottom_navigation">#9b9b9b</color>
+
+    <color name="common_content_bg">#f9f9fd</color>
+</resources>
