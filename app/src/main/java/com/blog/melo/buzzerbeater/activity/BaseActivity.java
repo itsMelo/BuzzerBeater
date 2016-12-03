@@ -1,10 +1,14 @@
 package com.blog.melo.buzzerbeater.activity;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
 import android.os.IBinder;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -12,6 +16,7 @@ import android.widget.EditText;
 
 import com.blog.melo.buzzerbeater.R;
 import com.blog.melo.buzzerbeater.fragment.BaseFragment;
+import com.blog.melo.buzzerbeater.fragment.SearchFragment;
 
 /**
  * Created by melo on 2016/11/24.
@@ -20,6 +25,14 @@ import com.blog.melo.buzzerbeater.fragment.BaseFragment;
 public class BaseActivity extends AppCompatActivity {
 
     protected BaseFragment currentFragment;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+        //写死竖屏
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
     /**
      * 添加或者显示 fragment
      *
@@ -36,12 +49,12 @@ public class BaseActivity extends AppCompatActivity {
             transaction.hide(currentFragment).show(fragment).commit();
         }
 
-        currentFragment.setUserVisibleHint(false);
-
         currentFragment = (BaseFragment) fragment;
 
-        currentFragment.setUserVisibleHint(true);
+        setToolbarStyle();
+    }
 
+    protected void setToolbarStyle() {
     }
 
 

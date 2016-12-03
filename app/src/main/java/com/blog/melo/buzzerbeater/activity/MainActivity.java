@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -17,6 +18,7 @@ import com.blog.melo.buzzerbeater.fragment.SettingFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements BlankFragment.OnFragmentInteractionListener {
 
@@ -27,6 +29,10 @@ public class MainActivity extends BaseActivity implements BlankFragment.OnFragme
     FrameLayout flContent;
     @BindView(R.id.bottom_navigation)
     AHBottomNavigation bottomNavigation;
+    @BindView(R.id.tv_toolbar_title)
+    TextView tvToolbarTitle;
+    @BindView(R.id.tv_toolbar_right)
+    TextView tvToolbarRight;
 
 
     private SearchFragment searchFragment;
@@ -43,10 +49,16 @@ public class MainActivity extends BaseActivity implements BlankFragment.OnFragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
+        initToolbar();
         initView();
         initData();
         initListener();
+    }
+
+    private void initToolbar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
     }
 
 
@@ -91,6 +103,7 @@ public class MainActivity extends BaseActivity implements BlankFragment.OnFragme
             // 记录当前Fragment
             currentFragment = searchFragment;
         }
+        tvToolbarTitle.setText(getString(R.string.tab_1));
     }
 
     private void initListener() {
@@ -158,6 +171,26 @@ public class MainActivity extends BaseActivity implements BlankFragment.OnFragme
     @Override
     public void onFragmentInteraction(String message) {
         Log.e(TAG, "onFragmentInteraction: " + message);
+    }
+
+    @OnClick(R.id.tv_toolbar_right)
+    public void onClick() {
+    }
+
+    @Override
+    protected void setToolbarStyle() {
+        super.setToolbarStyle();
+        if (currentFragment instanceof SearchFragment) {
+            tvToolbarTitle.setText(getString(R.string.tab_1));
+        } else if (currentFragment instanceof MusicFragment) {
+            tvToolbarTitle.setText(getString(R.string.tab_2));
+        } else if (currentFragment instanceof CarFragment) {
+            tvToolbarTitle.setText(getString(R.string.tab_3));
+        } else if (currentFragment instanceof SettingFragment) {
+            tvToolbarTitle.setText(getString(R.string.tab_4));
+        } else if (currentFragment instanceof BlankFragment) {
+            tvToolbarTitle.setText(getString(R.string.tab_5));
+        }
     }
 }
 
