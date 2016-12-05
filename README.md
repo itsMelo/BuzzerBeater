@@ -17,3 +17,5 @@
  - Fragment 的懒加载
 
  - Toolbar 的简单封装
+
+ - BaseRecycleAdapter 处理条目的点击事件
