@@ -8,15 +8,15 @@ import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.blog.melo.buzzerbeater.R;
 import com.blog.melo.buzzerbeater.fragment.BaseFragment;
-import com.blog.melo.buzzerbeater.fragment.SearchFragment;
 
 /**
  * Created by melo on 2016/11/24.
@@ -25,6 +25,10 @@ import com.blog.melo.buzzerbeater.fragment.SearchFragment;
 public class BaseActivity extends AppCompatActivity {
 
     protected BaseFragment currentFragment;
+
+    private long lastBackTime = 0;
+
+    private static final long TIME_INTERVAL = 2 * 1000;
 
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
@@ -106,4 +110,21 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (this instanceof MainActivity) {
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                long currentBackTime = System.currentTimeMillis();
+                if (currentBackTime - lastBackTime > TIME_INTERVAL) {
+                    Toast.makeText(this, "再按一次返回键退出", Toast.LENGTH_SHORT).show();
+                    lastBackTime = currentBackTime;
+                } else {
+                    finish();
+                }
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
