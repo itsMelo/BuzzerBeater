@@ -6,4 +6,5 @@
     <string name="tab_3">车辆</string>
     <string name="tab_4">设置</string>
     <string name="tab_5">玩乐</string>
+    <string name="press_back_twice">再按一次返回键退出</string>
 </resources>

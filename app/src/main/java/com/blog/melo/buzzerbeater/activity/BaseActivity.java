@@ -1,6 +1,7 @@
 package com.blog.melo.buzzerbeater.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -22,7 +23,7 @@ import com.blog.melo.buzzerbeater.fragment.BaseFragment;
  * Created by melo on 2016/11/24.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     protected BaseFragment currentFragment;
 
@@ -35,7 +36,11 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState, persistentState);
         //写死竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        initIntentParam(getIntent());
     }
+
+    // 初始化传入的参数
+    protected abstract void initIntentParam(Intent intent);
 
     /**
      * 添加或者显示 fragment
@@ -117,10 +122,15 @@ public class BaseActivity extends AppCompatActivity {
             if (keyCode == KeyEvent.KEYCODE_BACK) {
                 long currentBackTime = System.currentTimeMillis();
                 if (currentBackTime - lastBackTime > TIME_INTERVAL) {
-                    Toast.makeText(this, "再按一次返回键退出", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.press_back_twice, Toast.LENGTH_SHORT).show();
                     lastBackTime = currentBackTime;
                 } else {
                     finish();
+//                    直接点击返回 home
+//                    Intent intent = new Intent(Intent.ACTION_MAIN);
+//                    intent.addCategory(Intent.CATEGORY_HOME);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    startActivity(intent);
                 }
                 return true;
             }

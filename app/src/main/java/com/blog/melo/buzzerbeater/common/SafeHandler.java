@@ -7,7 +7,7 @@ import com.blog.melo.buzzerbeater.listener.HandlerContainer;
 import java.lang.ref.WeakReference;
 
 /**
- * Created by ${melo} on 2016/12/3.
+ * Created by melo on 2016/12/3.
  */
 
 public class SafeHandler<T extends HandlerContainer> extends Handler {
