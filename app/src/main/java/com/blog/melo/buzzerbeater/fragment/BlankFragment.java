@@ -1,6 +1,5 @@
 package com.blog.melo.buzzerbeater.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +30,8 @@ public class BlankFragment extends BaseFragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private static final String TAG = "BlankFragment";
+
     private Unbinder bind;
 
     /**
@@ -73,43 +73,25 @@ public class BlankFragment extends BaseFragment {
     }
 
 
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         bind.unbind();
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
     @OnClick(R.id.bt_blank)
     public void onClick() {
-        onButtonPressed("BlankFragment send this message");
+        Bundle bundle = new Bundle();
+        bundle.putString(TAG,"BlankFragment send this message");
+        onButtonPressed(bundle);
     }
 
-    public void onButtonPressed(String message) {
+    public void onButtonPressed(Bundle bundle) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(message);
+            mListener.onFragmentInteraction(bundle);
         }
     }
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(String message);
-    }
+
 
 }

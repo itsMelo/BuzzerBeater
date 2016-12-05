@@ -1,5 +1,6 @@
 package com.blog.melo.buzzerbeater.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,10 +20,18 @@ public class BaseFragment extends Fragment {
 
     private final String TAG = this.getClass().getSimpleName();
 
+    protected OnFragmentInteractionListener mListener;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         Log.e(TAG, "onAttach");
+        try {
+            mListener = (OnFragmentInteractionListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
     @Override
@@ -85,6 +94,7 @@ public class BaseFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         Log.e(TAG, "onDetach");
+        mListener = null;
     }
 
 
@@ -108,4 +118,16 @@ public class BaseFragment extends Fragment {
      */
     protected void lazyLoadData() {
     }
+
+
+    public interface OnFragmentInteractionListener {
+        void onFragmentInteraction(Bundle bundle);
+    }
+
+    public void runOnUIThread(Runnable r) {
+        final Activity activity = getActivity();
+        if (activity != null && r != null)
+            activity.runOnUiThread(r);
+    }
+
 }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.blog.melo.buzzerbeater.R;
+import com.blog.melo.buzzerbeater.fragment.BaseFragment;
 import com.blog.melo.buzzerbeater.fragment.BlankFragment;
 import com.blog.melo.buzzerbeater.fragment.CarFragment;
 import com.blog.melo.buzzerbeater.fragment.MusicFragment;
@@ -20,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements BlankFragment.OnFragmentInteractionListener {
+public class MainActivity extends BaseActivity implements BaseFragment.OnFragmentInteractionListener {
 
 
     @BindView(R.id.toolbar)
@@ -169,8 +170,8 @@ public class MainActivity extends BaseActivity implements BlankFragment.OnFragme
     }
 
     @Override
-    public void onFragmentInteraction(String message) {
-        Log.e(TAG, "onFragmentInteraction: " + message);
+    public void onFragmentInteraction(Bundle bundle) {
+        Log.e(TAG, "onFragmentInteraction: " + bundle.getString("BlankFragment"));
     }
 
     @OnClick(R.id.tv_toolbar_right)
