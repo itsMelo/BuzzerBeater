@@ -1,5 +1,6 @@
 package com.blog.melo.buzzerbeater.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
@@ -43,6 +44,12 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
     private BlankFragment blankFragment;
 
     private static final String TAG = "MainActivity";
+
+
+    @Override
+    protected void initIntentParam(Intent intent) {
+
+    }
 
 
     @Override
@@ -177,6 +184,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
     @OnClick(R.id.tv_toolbar_right)
     public void onClick() {
     }
+
 
     @Override
     protected void setToolbarStyle() {
