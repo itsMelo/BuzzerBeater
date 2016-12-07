@@ -23,9 +23,11 @@
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:gravity="center"
+        style="@style/ToolbarRightText"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:visibility="gone" />
+        android:text="权限"
+        />
 
 
 </android.support.v7.widget.Toolbar>

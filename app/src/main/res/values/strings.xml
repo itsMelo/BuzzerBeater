@@ -7,4 +7,9 @@
     <string name="tab_4">设置</string>
     <string name="tab_5">玩乐</string>
     <string name="press_back_twice">再按一次返回键退出</string>
+
+    <string name="tips">提示</string>
+    <string name="cancle">取消</string>
+    <string name="confrim">确认</string>
+    <string name="permission_desc">为了应用可以正常使用，请您点击确认申请权限。</string>
 </resources>

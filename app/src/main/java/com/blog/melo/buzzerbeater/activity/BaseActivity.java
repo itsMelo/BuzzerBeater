@@ -1,13 +1,22 @@
 package com.blog.melo.buzzerbeater.activity;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PersistableBundle;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -18,6 +27,7 @@ import android.widget.Toast;
 
 import com.blog.melo.buzzerbeater.R;
 import com.blog.melo.buzzerbeater.fragment.BaseFragment;
+import com.blog.melo.buzzerbeater.listener.PermissionsResultListener;
 
 /**
  * Created by melo on 2016/11/24.
@@ -137,4 +147,114 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    private PermissionsResultListener mListener;
+
+    private int mRequestCode;
+
+    public void performRequestPermissions(String desc, String[] permissions, int requestCode, PermissionsResultListener listener) {
+        if (permissions == null || permissions.length == 0) return;
+        mRequestCode = requestCode;
+        mListener = listener;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkEachSelfPermission(permissions)) {// 检查是否声明了权限
+                requestEachPermissions(desc, permissions, requestCode);
+            } else {// 已经申请权限
+                if (mListener != null) {
+                    mListener.onPermissionGranted();
+                }
+            }
+        } else {
+            if (mListener != null) {
+                mListener.onPermissionGranted();
+            }
+        }
+    }
+
+    private void requestEachPermissions(String desc, String[] permissions, int requestCode) {
+        if (shouldShowRequestPermissionRationale(permissions)) {// 需要再次声明
+            showRationaleDialog(desc, permissions, requestCode);
+        } else {
+            ActivityCompat.requestPermissions(BaseActivity.this, permissions, requestCode);
+        }
+    }
+
+    private void showRationaleDialog(String desc, final String[] permissions, final int requestCode) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.tips))
+                .setMessage(desc)
+                .setPositiveButton(getResources().getString(R.string.confrim), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ActivityCompat.requestPermissions(BaseActivity.this, permissions, requestCode);
+                    }
+                })
+                .setNegativeButton(getResources().getString(R.string.cancle), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .setCancelable(false)
+                .show();
+    }
+
+
+    /**
+     * 再次申请权限时，是否需要声明
+     *
+     * @param permissions
+     * @return
+     */
+    private boolean shouldShowRequestPermissionRationale(String[] permissions) {
+        for (String permission : permissions) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * 检察每个权限是否申请
+     *
+     * @param permissions
+     * @return true 需要申请权限,false 已申请权限
+     */
+
+    private boolean checkEachSelfPermission(String[] permissions) {
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == mRequestCode) {
+            if (checkEachPermissionsGranted(grantResults)) {
+                if (mListener != null) {
+                    mListener.onPermissionGranted();
+                }
+            } else {// 用户拒绝申请权限
+                if (mListener != null) {
+                    mListener.onPermissionDenied();
+                }
+            }
+        }
+    }
+
+    private boolean checkEachPermissionsGranted(int[] grantResults) {
+        for (int result : grantResults) {
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

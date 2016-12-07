@@ -37,6 +37,10 @@
         <item name="android:textColor">#ffffff</item>
     </style>
 
+    <style name="ToolbarRightText">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 
 
 </resources>

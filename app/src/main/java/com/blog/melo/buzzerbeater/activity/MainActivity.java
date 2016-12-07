@@ -1,5 +1,6 @@
 package com.blog.melo.buzzerbeater.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -7,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -17,6 +19,7 @@ import com.blog.melo.buzzerbeater.fragment.CarFragment;
 import com.blog.melo.buzzerbeater.fragment.MusicFragment;
 import com.blog.melo.buzzerbeater.fragment.SearchFragment;
 import com.blog.melo.buzzerbeater.fragment.SettingFragment;
+import com.blog.melo.buzzerbeater.listener.PermissionsResultListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +48,7 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
 
     private static final String TAG = "MainActivity";
 
+    private static final int PER_REQUEST_CODE = 1;
 
     @Override
     protected void initIntentParam(Intent intent) {
@@ -123,17 +127,13 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
 
                 if (position == 0) {// 导航
                     clickSearchLayout();
-                }
-                if (position == 1) {// 音乐
+                } else if (position == 1) {// 音乐
                     clickMusicLayout();
-                }
-                if (position == 2) {// OBD
+                } else if (position == 2) {// OBD
                     clickCarLayout();
-                }
-                if (position == 3) {
+                } else if (position == 3) {
                     clickSettingLayout();
-                }
-                if (position == 4) {
+                } else if (position == 4) {
                     clickToysLayout();
                 }
                 return true;
@@ -183,6 +183,18 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
 
     @OnClick(R.id.tv_toolbar_right)
     public void onClick() {
+        performRequestPermissions(getString(R.string.permission_desc), new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_COARSE_LOCATION}
+                , PER_REQUEST_CODE, new PermissionsResultListener() {
+                    @Override
+                    public void onPermissionGranted() {
+                        Toast.makeText(MainActivity.this, "已申请权限", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onPermissionDenied() {
+                        Toast.makeText(MainActivity.this, "拒绝申请权限", Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
 

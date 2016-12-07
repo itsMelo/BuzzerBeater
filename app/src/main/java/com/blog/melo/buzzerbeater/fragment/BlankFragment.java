@@ -88,8 +88,8 @@ public class BlankFragment extends BaseFragment {
     }
 
     public void onButtonPressed(Bundle bundle) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(bundle);
+        if (fragmentInteractionListener != null) {
+            fragmentInteractionListener.onFragmentInteraction(bundle);
         }
     }
 
