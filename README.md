@@ -19,3 +19,5 @@
  - Toolbar 的简单封装
 
  - BaseRecycleAdapter 处理条目的点击事件
+
+ - Android 6.0 运行时权限封装
