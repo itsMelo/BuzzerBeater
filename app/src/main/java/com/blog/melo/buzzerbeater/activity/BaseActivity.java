@@ -152,8 +152,18 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private int mRequestCode;
 
-    public void performRequestPermissions(String desc, String[] permissions, int requestCode, PermissionsResultListener listener) {
-        if (permissions == null || permissions.length == 0) return;
+    /**
+     * 其他 Activity 继承 BaseActivity 调用 performRequestPermissions 方法
+     *
+     * @param desc        首次申请权限被拒绝后再次申请给用户的描述提示
+     * @param permissions 要申请的权限数组
+     * @param requestCode 申请标记值
+     * @param listener    实现的接口
+     */
+    protected void performRequestPermissions(String desc, String[] permissions, int requestCode, PermissionsResultListener listener) {
+        if (permissions == null || permissions.length == 0) {
+            return;
+        }
         mRequestCode = requestCode;
         mListener = listener;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -171,6 +181,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 申请权限前判断是否需要声明
+     *
+     * @param desc
+     * @param permissions
+     * @param requestCode
+     */
     private void requestEachPermissions(String desc, String[] permissions, int requestCode) {
         if (shouldShowRequestPermissionRationale(permissions)) {// 需要再次声明
             showRationaleDialog(desc, permissions, requestCode);
@@ -179,6 +196,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 弹出声明的 Dialog
+     *
+     * @param desc
+     * @param permissions
+     * @param requestCode
+     */
     private void showRationaleDialog(String desc, final String[] permissions, final int requestCode) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.tips))
@@ -222,7 +246,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param permissions
      * @return true 需要申请权限,false 已申请权限
      */
-
     private boolean checkEachSelfPermission(String[] permissions) {
         for (String permission : permissions) {
             if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
@@ -232,6 +255,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * 申请权限结果的回调
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -248,6 +278,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 检查回调结果
+     *
+     * @param grantResults
+     * @return
+     */
     private boolean checkEachPermissionsGranted(int[] grantResults) {
         for (int result : grantResults) {
             if (result != PackageManager.PERMISSION_GRANTED) {

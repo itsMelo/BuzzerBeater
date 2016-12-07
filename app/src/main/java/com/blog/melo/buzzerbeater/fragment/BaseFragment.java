@@ -145,7 +145,7 @@ public class BaseFragment extends Fragment {
 
     private int mRequestCode;
 
-    public void performRequestPermissions(String desc, String[] permissions, int requestCode, PermissionsResultListener listener) {
+    protected void performRequestPermissions(String desc, String[] permissions, int requestCode, PermissionsResultListener listener) {
         if (permissions == null || permissions.length == 0) return;
         mRequestCode = requestCode;
         mListener = listener;
