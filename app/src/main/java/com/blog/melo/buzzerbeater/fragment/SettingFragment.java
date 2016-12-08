@@ -23,7 +23,6 @@ public class SettingFragment extends BaseFragment {
 
     private static final String TAG = "SettingFragment";
     private static final int PER_REQUEST_CODE = 2;
-    private Unbinder bind;
 
     public static SettingFragment newInstance(String title) {
         SettingFragment f = new SettingFragment();
@@ -34,12 +33,24 @@ public class SettingFragment extends BaseFragment {
     }
 
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_setting, container, false);
-        bind = ButterKnife.bind(this, view);
-        return view;
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    public int setFragmentLayoutID() {
+        return R.layout.fragment_setting;
     }
 
     @OnClick(R.id.bt_request_permission)
@@ -56,11 +67,5 @@ public class SettingFragment extends BaseFragment {
                         Toast.makeText(getActivity(), "拒绝申请权限", Toast.LENGTH_LONG).show();
                     }
                 });
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        bind.unbind();
     }
 }

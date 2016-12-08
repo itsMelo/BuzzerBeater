@@ -66,24 +66,31 @@ public class BlankFragment extends BaseFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_blank, container, false);
-        bind = ButterKnife.bind(this, view);
-        return view;
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initView() {
+
     }
 
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        bind.unbind();
+    public int setFragmentLayoutID() {
+        return R.layout.fragment_blank;
     }
 
 
     @OnClick(R.id.bt_blank)
     public void onClick() {
         Bundle bundle = new Bundle();
-        bundle.putString(TAG,"BlankFragment send this message");
+        bundle.putString(TAG, "BlankFragment send this message");
         onButtonPressed(bundle);
     }
 

@@ -24,12 +24,24 @@ public class BusinessFragment extends BaseFragment {
         return f;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_business, container, false);
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected void initData() {
         isViewCreated = true;
-        return view;
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    public int setFragmentLayoutID() {
+        return R.layout.fragment_business;
     }
 
     @Override

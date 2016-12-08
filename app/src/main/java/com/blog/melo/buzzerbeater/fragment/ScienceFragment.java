@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.blog.melo.buzzerbeater.R;
 
 /**
- * Created by ${melo} on 2016/11/30.
+ * Created by melo on 2016/11/30.
  */
 
 public class ScienceFragment extends BaseFragment {
@@ -26,13 +26,24 @@ public class ScienceFragment extends BaseFragment {
         return f;
     }
 
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_science, container, false);
+    public int setFragmentLayoutID() {
+        return R.layout.fragment_science;
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected void initData() {
         isViewCreated = true;
-        return view;
+    }
+
+    @Override
+    protected void initView() {
+
     }
 
     @Override

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.blog.melo.buzzerbeater.R;
 
 /**
- * Created by ${melo} on 2016/11/29.
+ * Created by melo on 2016/11/29.
  */
 
 public class MusicFragment extends BaseFragment {
@@ -25,11 +25,24 @@ public class MusicFragment extends BaseFragment {
         return f;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_music, container, false);
-        return view;
+    public int setFragmentLayoutID() {
+        return R.layout.fragment_music;
     }
 
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected void initData() {
+        isViewCreated = true;
+    }
+
+    @Override
+    protected void initView() {
+
+    }
 }

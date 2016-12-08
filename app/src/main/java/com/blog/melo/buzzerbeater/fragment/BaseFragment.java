@@ -21,17 +21,21 @@ import com.blog.melo.buzzerbeater.R;
 import com.blog.melo.buzzerbeater.activity.BaseActivity;
 import com.blog.melo.buzzerbeater.listener.PermissionsResultListener;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * Created by ${melo} on 2016/11/29.
  */
 
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
     protected boolean isViewCreated = false;
 
     private final String TAG = this.getClass().getSimpleName();
 
     protected OnFragmentInteractionListener fragmentInteractionListener;
+    private Unbinder bind;
 
     @Override
     public void onAttach(Context context) {
@@ -56,8 +60,22 @@ public class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e(TAG, "onCreateView");
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View rootView = inflater.inflate(setFragmentLayoutID(),container,false);
+        bind = ButterKnife.bind(this, rootView);
+        initView();
+        initData();
+        initListener();
+        return rootView;
     }
+
+    protected abstract void initListener();
+
+    protected abstract void initData();
+
+    protected abstract void initView();
+
+    public abstract int setFragmentLayoutID();
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -93,6 +111,7 @@ public class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         Log.e(TAG, "onDestroyView");
+        bind.unbind();
     }
 
     @Override

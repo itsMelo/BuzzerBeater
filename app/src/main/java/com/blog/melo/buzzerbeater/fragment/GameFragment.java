@@ -26,15 +26,26 @@ public class GameFragment extends BaseFragment {
     }
 
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_game, container, false);
-        Log.e(TAG, "onCreateView");
-        isViewCreated = true;
-        return view;
+    public int setFragmentLayoutID() {
+        return R.layout.fragment_game;
     }
 
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected void initData() {
+        isViewCreated = true;
+    }
+
+    @Override
+    protected void initView() {
+
+    }
 
     @Override
     protected void lazyLoadData() {
