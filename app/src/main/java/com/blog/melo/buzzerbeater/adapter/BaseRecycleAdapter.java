@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by melo on 2016/12/5.
  */
@@ -47,6 +49,7 @@ public class BaseRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         public BaseViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 

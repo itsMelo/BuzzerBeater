@@ -14,20 +14,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-
         tools:text="标题" />
 
     <TextView
         android:id="@+id/tv_toolbar_right"
+        style="@style/ToolbarRightText"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:gravity="center"
-        style="@style/ToolbarRightText"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="权限"
-        />
+        android:text="权限" />
 
 
 </android.support.v7.widget.Toolbar>
