@@ -20,6 +20,7 @@ import com.blog.melo.buzzerbeater.fragment.MusicFragment;
 import com.blog.melo.buzzerbeater.fragment.SearchFragment;
 import com.blog.melo.buzzerbeater.fragment.SettingFragment;
 import com.blog.melo.buzzerbeater.listener.PermissionsResultListener;
+import com.blog.melo.buzzerbeater.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -185,12 +186,12 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 , PER_REQUEST_CODE, new PermissionsResultListener() {
                     @Override
                     public void onPermissionGranted() {
-                        Toast.makeText(MainActivity.this, "已申请权限", Toast.LENGTH_LONG).show();
+                        ToastUtils.showShortToast("已申请权限");
                     }
 
                     @Override
                     public void onPermissionDenied() {
-                        Toast.makeText(MainActivity.this, "拒绝申请权限", Toast.LENGTH_LONG).show();
+                        ToastUtils.showShortToast("拒绝申请权限");
                     }
                 });
     }

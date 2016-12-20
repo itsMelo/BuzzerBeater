@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.support.v7.app.AppCompatDelegate;
 
+import com.blog.melo.buzzerbeater.utils.ToastUtils;
+
 /**
  * Created by melo on 2016/12/9.
  */
@@ -13,7 +15,7 @@ public class BaseApplication extends Application {
     private static String sCacheDir;
     public static Context sAppContext;
 
-    // TODO: 16/8/1 这里的夜间模式 UI 有些没有适配好 暂时放弃夜间模式
+    // TODO: 16/12/1 这里的夜间模式 UI 有些没有适配好 暂时放弃夜间模式
     static {
         AppCompatDelegate.setDefaultNightMode(
                 AppCompatDelegate.MODE_NIGHT_NO);
@@ -33,6 +35,8 @@ public class BaseApplication extends Application {
         } else {
             sCacheDir = getApplicationContext().getCacheDir().toString();
         }
+
+        ToastUtils.init(true);
     }
 
     private boolean ExistSDCard() {

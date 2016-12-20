@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.blog.melo.buzzerbeater.R;
 import com.blog.melo.buzzerbeater.listener.PermissionsResultListener;
+import com.blog.melo.buzzerbeater.utils.ToastUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -59,12 +60,12 @@ public class SettingFragment extends BaseFragment {
                 , PER_REQUEST_CODE, new PermissionsResultListener() {
                     @Override
                     public void onPermissionGranted() {
-                        Toast.makeText(getActivity(), "已申请权限", Toast.LENGTH_LONG).show();
+                        ToastUtils.showShortToast("已申请权限");
                     }
 
                     @Override
                     public void onPermissionDenied() {
-                        Toast.makeText(getActivity(), "拒绝申请权限", Toast.LENGTH_LONG).show();
+                        ToastUtils.showShortToast("已拒绝权限");
                     }
                 });
     }

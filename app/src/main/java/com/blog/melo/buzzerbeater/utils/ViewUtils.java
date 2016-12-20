@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.view.inputmethod.InputMethodManager;
 
 /**
- * Created by ${melo} on 2016/11/24.
+ * Created by melo on 2016/11/24.
  */
 
 public class ViewUtils {
