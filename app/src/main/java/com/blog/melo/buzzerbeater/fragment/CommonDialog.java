@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 
 /**
@@ -57,7 +58,7 @@ public class CommonDialog extends BaseDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (mListener != null) {
-                            mListener.onConfirm();
+                            mListener.onConfirm(dialogInterface, i);
                         }
                     }
                 })
@@ -65,7 +66,7 @@ public class CommonDialog extends BaseDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (mListener != null) {
-                            mListener.onCancel();
+                            mListener.onCancel(dialogInterface, i);
                         }
                     }
                 })
@@ -73,9 +74,4 @@ public class CommonDialog extends BaseDialogFragment {
         return builder.create();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        dismiss();
-    }
 }

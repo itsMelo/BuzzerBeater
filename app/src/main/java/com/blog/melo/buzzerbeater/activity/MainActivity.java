@@ -1,6 +1,7 @@
 package com.blog.melo.buzzerbeater.activity;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -227,15 +228,22 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 return true;
             case R.id.action_dialog:
                 CommonDialog dialog = CommonDialog.newInstance("提示", "这是一个Message~", "确认", "取消", false, new BaseDialogFragment.OnDialogInteraction() {
+
                     @Override
-                    public void onConfirm() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+
+                    @Override
+                    public void onConfirm(DialogInterface dialog, int which) {
                         ToastUtils.showShortToast("onConfirm");
                     }
 
                     @Override
-                    public void onCancel() {
+                    public void onCancel(DialogInterface dialog, int which) {
                         ToastUtils.showShortToast("onCancel");
                     }
+
                 });
                 dialog.show(getSupportFragmentManager(), TAG);
                 return true;

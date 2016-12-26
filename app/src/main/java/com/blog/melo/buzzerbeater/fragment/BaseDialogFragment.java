@@ -1,5 +1,6 @@
 package com.blog.melo.buzzerbeater.fragment;
 
+import android.content.DialogInterface;
 import android.support.v4.app.DialogFragment;
 
 /**
@@ -9,11 +10,11 @@ import android.support.v4.app.DialogFragment;
 
 public class BaseDialogFragment extends DialogFragment {
 
-    public interface OnDialogInteraction {
+    public interface OnDialogInteraction extends DialogInterface.OnClickListener {
 
-        void onConfirm();
+        void onConfirm(DialogInterface dialog, int which);
 
-        void onCancel();
+        void onCancel(DialogInterface dialog, int which);
 
     }
 
