@@ -12,4 +12,6 @@
     <string name="cancle">取消</string>
     <string name="confrim">确认</string>
     <string name="permission_desc">为了应用可以正常使用，请您点击确认申请权限。</string>
+    <string name="action_permissions">Permissions</string>
+    <string name="action_dialog">Dialog</string>
 </resources>

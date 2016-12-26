@@ -56,7 +56,6 @@ public class SearchFragment extends BaseFragment {
 
     }
 
-
     @Override
     protected void initView() {
         fragmentList = new ArrayList<>();
