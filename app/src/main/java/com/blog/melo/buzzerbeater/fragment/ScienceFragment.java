@@ -1,14 +1,12 @@
 package com.blog.melo.buzzerbeater.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.blog.melo.buzzerbeater.R;
+import com.blog.melo.buzzerbeater.utils.ToastUtils;
+
+import butterknife.OnClick;
 
 /**
  * Created by melo on 2016/11/30.
@@ -53,4 +51,5 @@ public class ScienceFragment extends BaseFragment {
             Log.e(TAG, "lazyLoadData...");
         }
     }
+
 }

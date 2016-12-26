@@ -6,16 +6,18 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.blog.melo.buzzerbeater.R;
+import com.blog.melo.buzzerbeater.fragment.BaseDialogFragment;
 import com.blog.melo.buzzerbeater.fragment.BaseFragment;
 import com.blog.melo.buzzerbeater.fragment.BlankFragment;
 import com.blog.melo.buzzerbeater.fragment.CarFragment;
+import com.blog.melo.buzzerbeater.fragment.CommonDialog;
 import com.blog.melo.buzzerbeater.fragment.MusicFragment;
 import com.blog.melo.buzzerbeater.fragment.SearchFragment;
 import com.blog.melo.buzzerbeater.fragment.SettingFragment;
@@ -26,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements BaseFragment.OnFragmentInteractionListener {
+public class MainActivity extends BaseActivity implements BaseFragment.OnFragmentInteractionListener, Toolbar.OnMenuItemClickListener {
 
 
     @BindView(R.id.toolbar)
@@ -68,8 +70,8 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
     }
 
     private void initToolbar() {
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.inflateMenu(R.menu.menu_main);
+        toolbar.setOnMenuItemClickListener(this);
     }
 
 
@@ -108,10 +110,9 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
         }
 
         if (!searchFragment.isAdded()) {
-            // 提交事务
+
             getSupportFragmentManager().beginTransaction().add(R.id.fl_content, searchFragment).commit();
 
-            // 记录当前Fragment
             currentFragment = searchFragment;
         }
         tvToolbarTitle.setText(getString(R.string.tab_1));
@@ -138,6 +139,8 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
                 return true;
             }
         });
+
+        toolbar.setOnMenuItemClickListener(this);
     }
 
     private void clickSearchLayout() {
@@ -182,20 +185,8 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
 
     @OnClick(R.id.tv_toolbar_right)
     public void onClick() {
-        performRequestPermissions(getString(R.string.permission_desc), new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_COARSE_LOCATION}
-                , PER_REQUEST_CODE, new PermissionsResultListener() {
-                    @Override
-                    public void onPermissionGranted() {
-                        ToastUtils.showShortToast("已申请权限");
-                    }
 
-                    @Override
-                    public void onPermissionDenied() {
-                        ToastUtils.showShortToast("拒绝申请权限");
-                    }
-                });
     }
-
 
     @Override
     protected void setToolbarStyle() {
@@ -210,6 +201,46 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
             tvToolbarTitle.setText(getString(R.string.tab_4));
         } else if (currentFragment instanceof BlankFragment) {
             tvToolbarTitle.setText(getString(R.string.tab_5));
+        }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_settings:
+                ToastUtils.showShortToast("Settings");
+                return true;
+            case R.id.action_permissions:
+                performRequestPermissions(getString(R.string.permission_desc), new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_COARSE_LOCATION}
+                        , PER_REQUEST_CODE, new PermissionsResultListener() {
+                            @Override
+                            public void onPermissionGranted() {
+                                ToastUtils.showShortToast("已申请权限");
+                            }
+
+                            @Override
+                            public void onPermissionDenied() {
+                                ToastUtils.showShortToast("拒绝申请权限");
+                            }
+                        });
+                return true;
+            case R.id.action_dialog:
+                CommonDialog dialog = CommonDialog.newInstance("提示", "这是一个Message~", "确认", "取消", false, new BaseDialogFragment.OnDialogInteraction() {
+                    @Override
+                    public void onConfirm() {
+                        ToastUtils.showShortToast("onConfirm");
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        ToastUtils.showShortToast("onCancel");
+                    }
+                });
+                dialog.show(getSupportFragmentManager(), TAG);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

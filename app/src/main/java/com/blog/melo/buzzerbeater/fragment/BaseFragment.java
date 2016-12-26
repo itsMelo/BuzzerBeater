@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * Created by ${melo} on 2016/11/29.
+ * Created by melo on 2016/11/29.
  */
 
 public abstract class BaseFragment extends Fragment {
@@ -60,7 +60,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e(TAG, "onCreateView");
-        View rootView = inflater.inflate(setFragmentLayoutID(),container,false);
+        View rootView = inflater.inflate(setFragmentLayoutID(), container, false);
         bind = ButterKnife.bind(this, rootView);
         initView();
         initData();
