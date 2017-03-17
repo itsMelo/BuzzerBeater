@@ -17,7 +17,7 @@ public class GameFragment extends BaseFragment {
 
     @OnClick(R.id.bt_dialog)
     public void onClick() {
-        CommonDialog.newInstance("警告", "危险操作，请三思", "继续", "取消", false, new BaseDialogFragment.OnDialogInteraction() {
+        CommonDialog.newInstance("提示", "这里填 Message", "继续", "取消", false, new BaseDialogFragment.OnDialogInteraction() {
             @Override
             public void onConfirm(DialogInterface dialog, int which) {
                 ToastUtils.showShortToast("onConfirm");

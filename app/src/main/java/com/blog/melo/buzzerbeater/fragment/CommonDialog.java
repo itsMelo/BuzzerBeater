@@ -9,6 +9,9 @@ import android.support.v7.app.AlertDialog;
 
 /**
  * Created by melo on 2016/12/20.
+ *
+ * 封装一个系统原生的 Dialog
+ * 注:当不需要"取消"按钮时，穿一个空字符串
  */
 
 public class CommonDialog extends BaseDialogFragment {
@@ -69,8 +72,9 @@ public class CommonDialog extends BaseDialogFragment {
                             mListener.onCancel(dialogInterface, i);
                         }
                     }
-                })
-                .setCancelable(cancelable);
+                });
+        setCancelable(cancelable);
+        builder.create().setCanceledOnTouchOutside(false);
         return builder.create();
     }
 
