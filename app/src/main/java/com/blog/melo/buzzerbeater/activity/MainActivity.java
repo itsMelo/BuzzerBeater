@@ -112,10 +112,13 @@ public class MainActivity extends BaseActivity implements BaseFragment.OnFragmen
 
         if (!searchFragment.isAdded()) {
 
-            getSupportFragmentManager().beginTransaction().add(R.id.fl_content, searchFragment).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.fl_content, searchFragment).commitAllowingStateLoss();
 
-            currentFragment = searchFragment;
+        } else {
+            getSupportFragmentManager().beginTransaction().show(searchFragment).commitAllowingStateLoss();
         }
+
+        currentFragment = searchFragment;
         tvToolbarTitle.setText(getString(R.string.tab_1));
     }
 

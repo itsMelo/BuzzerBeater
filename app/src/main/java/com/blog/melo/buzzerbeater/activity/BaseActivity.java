@@ -61,9 +61,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             return;
 
         if (!fragment.isAdded()) { // 如果当前fragment未被添加，则添加到Fragment管理器中
-            transaction.hide(currentFragment).add(R.id.fl_content, fragment).commit();
+            transaction.hide(currentFragment).add(R.id.fl_content, fragment).commitAllowingStateLoss();
         } else {
-            transaction.hide(currentFragment).show(fragment).commit();
+            transaction.hide(currentFragment).show(fragment).commitAllowingStateLoss();
         }
 
         currentFragment = (BaseFragment) fragment;

@@ -21,3 +21,5 @@
  - BaseRecycleAdapter 处理条目的点击事件
 
  - Android 6.0 运行时权限封装
+
+ - CommonDialogFragment 全局封装管理 Dialog

@@ -18,6 +18,4 @@ public class BaseDialogFragment extends DialogFragment {
 
     }
 
-    protected OnDialogInteraction mListener;
-
 }
